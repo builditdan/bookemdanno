@@ -1,0 +1,26 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.banner-image {
+
+  /*background-image: url("/assets/bookemdanno2.png");*/
+  /*background-size: 10px 10px;*/
+  background-size: cover;
+  background-color: #0981AE;
+  border-style: none;
+  height: 300px;
+  border-radius: 0px 0px 150px 150px;
+
+
+}
+
+.callout {
+  background-size: cover;
+  background-color: #F8F8F8;
+  margin-top: 25px;
+  padding: 30px;
+
+}

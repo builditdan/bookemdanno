@@ -1,7 +1,19 @@
 == README
+It's easy enough to bookmark a URL in your browser,
+but eventually your bookmark library may get cluttered and it may require
+effort to manage bookmarks. Wouldn't you also like the ability to share bookmarks 
+with friends? That is not something you can do easily from your native browser.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Ruby Version Information**
+`ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-darwin14]``
+
+**System Dependencies**
+RSpec
+SqlLite
+
+------
+
+
 
 Things you may want to cover:
 

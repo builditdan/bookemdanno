@@ -1,0 +1,27 @@
+
+<h1>User Profile</h1>
+<hr>
+
+
+     <div class="col-md-12">
+       <h2 class="media-heading"><%= @user.name %></h2>
+       <br>
+       <h4>
+         <% if @user.premium? || @user.admin? %>
+           <span style="color:red"><%= @user.role.capitalize %></span>
+         <% else %>
+           <span style="color:green"><%= @user.role.capitalize %></span>
+         <% end %>
+         account type<br><br>
+         <p><span style="font-weight:bold;">Email: </span><%= @user.email %><br>
+         <span style="font-weight:bold;">Last signed in: </span><%= @user.last_sign_in_at %><br>
+         <span style="font-weight:bold;">Member since: </span><%= @user.created_at %></p>
+         <p><span style="font-weight:bold;">Number of bookmark items: </span><%= 30000 %><br></p>
+       </h4>
+       <br>
+       <%= link_to "Edit Registration", edit_user_registration_path, class: 'btn btn-primary' %>
+    </div>
+
+
+
+<br>

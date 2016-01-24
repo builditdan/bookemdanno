@@ -1,0 +1,53 @@
+
+<div class="banner-image container-fluid" style = "white-space: nowrap;">
+
+
+     <br>
+     <h1 style="margin-left:100px; color:white;">Finally - an easy way to store your bookmarks</h1>
+     <h2 style="margin-left:150px; color:#e6e6e6;">Manage your web page links for life.</h2>
+     <br>
+
+     <div class="pull-left" style="padding-left:15px;">
+        <%= image_tag("running-boy.png") %>
+     </div>
+       <div class="pull-right" style="padding-right:75px;">
+         <% if user_signed_in? %>
+           <div style = "color:white;">
+             <h2>A hearty welcome to you <%=current_user.name %>!</h2>
+             <h4><%= link_to "Manage your Bookmarks or ", "#" %> or
+             <%= link_to "Update your settings", "#" %> today!</h4>
+           </div>
+         <% else %>
+           <div style = "color:white;">
+             <h2>Start creating your bookmarks today!</h2>
+             <h4><%= link_to "Sign In", new_user_session_path %> or
+             <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %> today!</h4>
+           </div>
+         <% end %>
+       </div>
+
+
+</div>
+
+  <div class = "row callout center-block">
+
+    <div class="col-md-4 pull-left" style="margin-top:25px;">
+      <%=image_tag("save_bookmark.png", width:"150px", height:"150px")%>
+    </div>
+    <div class="col-md-8 pull-right" style="margin-top:25px;">
+        <h2>Build your bookmark libary with us!</h2>
+        <h2><small>We provide hassle free adding of your bookmarks while online. You can organize them by category and enter a description.</small></h2>
+
+    </div>
+  </div>
+
+  <div class="row callout center-block">
+    <div class="col-md-4 pull-right" style="margin-top:75px;">
+      <%=image_tag("email_bookmark.png", width:"125px", height:"125px")%>
+    </div>
+    <div class="col-md-8 pull-left" style="margin-top:50px;">
+      <h2>Email your bookmark!</h2>
+      <h2><small>Don't worry if you can't make it to website. You can just send an email to <br>your account and will add the bookmark for you.</small></h2>
+    </div>
+
+  </div>

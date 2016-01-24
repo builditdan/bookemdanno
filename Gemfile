@@ -4,7 +4,23 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
+group :production do
+   #need to install postgress
+   #gem 'pg'
+   #gem 'rails_12factor'
+end
+
+gem "faker"
+
+gem 'bootstrap-sass'
+
+gem 'devise'
+
+gem 'figaro', '1.0'
+
+gem "pundit"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -33,8 +49,23 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'sqlite3'
+
+  #CLI gem for irb
+  gem 'pry-rails'
+
+  #Testing gems
+  gem 'shoulda'
+  gem 'rspec-rails', '~> 3.0'
+
+  #Gem to help with keeping your code DRY
+  gem 'factory_girl_rails', '~> 4.0'
+
+  #Gems to help with debugging
   gem 'byebug'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
 end
 
 group :development do
@@ -44,4 +75,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

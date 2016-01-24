@@ -1,14 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bookemdanno</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <title>Book 'em Danno</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 
-<%= yield %>
+  <% if params[:controller] != "welcome" %>
+      <nav class="navbar" style="background-color:#E9E9E9;">
+  <% else %>
+      <nav class="navbar">
+  <% end %>
 
-</body>
-</html>
+
+      <div class="container">
+
+        <div class="navbar-header site-logo">
+          <%= link_to image_tag("bookemdanno-logo.png"), welcome_index_path %>
+        </div>
+
+        <ul span class="nav navbar-nav navbar-right">
+           <% if user_signed_in? %>
+            <li><%= link_to "Bookmark Mgmt", "#" %></li>
+            <li><%= link_to "Account", users_show_path(current_user) %></li>
+            <li><%= link_to "About", "#" %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Sign In", new_user_session_path %></li>
+            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <% end %>
+        </ul>
+
+
+      </div>
+    </nav>
+
+
+        <div class="flash">
+          <% if flash[:notice] %>
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:notice] %>
+            </div>
+          <% elsif flash[:alert] %>
+              <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:alert] %>
+          <% elsif flash[:alert] %>
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= flash[:alert] %>
+            </div>
+         <% end %>
+       </div>
+
+      <% if params[:controller] != "welcome" %>
+        <div class="container ">
+      <% end %>
+
+         <%= yield %>
+
+      <% if params[:controller] != "welcome" %>
+        </div>
+      <% end %>
+
+
+    </body>
+    </html>
