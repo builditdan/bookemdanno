@@ -56,7 +56,7 @@ standard = User.create!(
   200.times do
     bookmark = Bookmark.create!(
     url: RandomData.random_url,
-    topic_id: RandomData.random_topic(1, Topic.count),
+    topic_id: RandomData.random_topic(1, Topic.count)
   )
   end
 
