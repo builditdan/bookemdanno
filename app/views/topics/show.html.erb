@@ -1,0 +1,24 @@
+<h1><%= @topic.title %></h1>
+<hr>
+
+
+ <div class="row">
+
+   <div class="col-md-10">
+     <p class="lead">
+       <%= render partial: "topics", locals: {topic: @topic} %>
+     </p>
+   </div>
+
+   <div class="col-md-2" >
+     <%# if user_is_authorized_to_edit_topics? %>
+       <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success btn-spacing' %>
+     <%# end %>
+     <%# if user_is_authorized_to_delete_topics? %>
+       <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger btn-spacing', data: {confirm: 'Are you sure you want to delete this topic, all bookmarks associated with this topic will be deleted?'} %>
+     <%# end %>
+     <%= link_to "New Bookmark", new_topic_path(@topic), class: 'btn btn-success btn-spacing' %>
+     <%= link_to "Return to Topic list", topics_path, {:class=>"btn btn-default btn-spacing"} %>
+   </div>
+
+</div>

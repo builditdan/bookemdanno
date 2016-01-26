@@ -1,0 +1,17 @@
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to "#{topic.title} - #{topic.id}", topic %>
+    </h4>
+    <br>
+    Bookmarks</br>
+    <small>
+      <%= "Its lonley with no bookmarks! :)" if topic.bookmarks.blank? %>
+      <% topic.bookmarks.each do |the_bookmark| %>
+       <%## Why can't I use the_bookmark model below instead of having to spell out the params hash assignment %>
+        <%= link_to "#{the_bookmark.url}", topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id) %>
+      <% end %>
+    </small>
+  </div>
+</div>
+<br>

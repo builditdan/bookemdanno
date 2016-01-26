@@ -1,0 +1,27 @@
+<h1>Bookmarks by Topic</h1>
+<br>
+
+<div class="row pagination">
+  <div class="col-md-10">
+    <% topics.each do |the_topic| %>
+      <%= render partial: "topics", locals: {topic: the_topic} %>
+    <% end %>
+
+    <br><br>
+
+    <% if @enablenav %>
+      <ul class="pagination">
+        <%= link_to "Previous Topic", previous_topics_path(next_offset:params[:next_offset],previous_offset:params[:previous_offset]), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Next Topic", next_topics_path(next_offset:params[:next_offset],previous_offset:params[:previous_offset]), method: :get, class: 'btn btn-success' %>
+      </ul>
+    <% end %>
+
+  </div>
+  <div class="col-md-2">
+    <%# if user_is_authorized_to_delete_topics? %>
+      <div class="col-md-4">
+        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+
+      </div>
+    <%# end %>
+  </div>

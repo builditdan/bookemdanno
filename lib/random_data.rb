@@ -39,4 +39,13 @@ module RandomData
     rand(low...high)
   end
 
+  def random_topic(low,high)
+    rand(low...high)
+  end
+
+  def random_url
+    Faker::Internet.url
+  end
+
+
 end

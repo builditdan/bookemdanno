@@ -5,7 +5,8 @@ include RandomData
    name:     RandomData.random_name,
    email:    RandomData.random_email,
    password: RandomData.random_password,
-   confirmed_at: Time.now
+   confirmed_at: Time.now,
+   items_per_page: 5
    )
  end
 
@@ -16,7 +17,8 @@ include RandomData
   email: 'admin@example.com',
   password: 'password',
   confirmed_at: Time.now,
-  role: 'admin'
+  role: 'admin',
+  items_per_page: 5
 )
 
 standard = User.create!(
@@ -24,7 +26,8 @@ standard = User.create!(
    email:    'standard@example.com',
    password: 'password',
    confirmed_at: Time.now,
-   role: 'standard'
+   role: 'standard',
+   items_per_page: 5
  )
 
  premium = User.create!(
@@ -32,7 +35,8 @@ standard = User.create!(
    email: 'premium@example.com',
    password: 'password',
    confirmed_at: Time.now,
-   role: 'premium'
+   role: 'premium',
+   items_per_page: 5
  )
 
  #50.times do
@@ -42,6 +46,21 @@ standard = User.create!(
    #)
 #end
 
+  52.times do
+   topic = Topic.create!(
+     title:   RandomData.random_sentence,
+     user_id: RandomData.random_user(1, User.count)
+  )
+  end
+
+  200.times do
+    bookmark = Bookmark.create!(
+    url: RandomData.random_url,
+    topic_id: RandomData.random_topic(1, Topic.count),
+  )
+  end
+
  puts "Seed finished"
  puts "#{User.count} users created"
- #puts "#{Item.count} to-do items created"
+ puts "#{Topic.count} topics created"
+ puts "#{Bookmark.count} bookmarks created"
