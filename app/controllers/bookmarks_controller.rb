@@ -6,9 +6,10 @@ class BookmarksController < ApplicationController
 
   def create
     #@bookmark = Bookmark.build(bookmark_params)
-    @bookmark = Bookmark.new(bookmark_params)
-    # Research why I can't get topic_id permitted  
-    @bookmark.topic_id = params[:topic_id]
+    @topic = Topic.find params[:topic_id]
+    @bookmark = @topic.bookmarks.build(bookmark_params)
+    # Research why I can't get topic_id permitted
+    #@bookmark.topic_id = params[:topic_id]
     if @bookmark.save
       redirect_to topic_path(params[:topic_id]), notice: "Bookmark was saved successfully."
     else
@@ -52,7 +53,7 @@ class BookmarksController < ApplicationController
   private
 
     def bookmark_params
-      params.require(:bookmark).permit(:url, :topic_id)
+      params.require(:bookmark).permit(:url)
     end
 
     def add_http(link)

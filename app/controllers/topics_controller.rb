@@ -54,7 +54,8 @@ class TopicsController < ApplicationController
       params[:previous_offset] = (params[:previous_offset].to_i - ipp).to_s
       params[:next_offset] = (params[:previous_offset].to_i + (ipp *2)).to_s
     end
-
+    Rails.logger.debug params
+    Rails.logger.info "doing this"
   end
 
   def show

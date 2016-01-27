@@ -40,14 +40,14 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.smtp_settings = {
-        address: "smtp.gmail.com",
+        address: "smtp.mailgun.org",
         port: 587,
-        domain: "localhost:3000", #Rails.application.secrets.domain_name,
+        domain: "sandbox677ae98acdcf49c0ab4f217c8789a4e8.mailgun.org", #Rails.application.secrets.domain_name,
         authentication: "plain",
         enable_starttls_auto: true,
-        user_name: ENV['GMAIL_EMAIL'], # Rails.application.secrets.email_provider_username,
-        password: ENV['GMAIL_PASSWORD'] # Rails.application.secrets.email_provider_password
-      }
+        user_name: ENV['MAILGUN_EMAIL'], # Rails.application.secrets.email_provider_username,
+        password: ENV['MAILGUN_PASSWORD'] # Rails.application.secrets.email_provider_password,
+    }
 
     #ActionMail config
     config.action_mailer.default_url_options = { host: 'localhost', port:3000}
