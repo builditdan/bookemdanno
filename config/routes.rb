@@ -1,24 +1,6 @@
 Rails.application.routes.draw do
 
 
-  #get 'bookmarks/show'
-
-  #get 'bookmarks/new'
-
-  #get 'bookmarks/edit'
-
-  #get 'bookmark/show'
-
-  #get 'bookmark/new'
-
-
-  #get 'bookmark/edit'
-
-  #get 'topics/index'
-#  get 'topics/show'
-#  get 'topics/new'
-#  get 'topics/edit'
-
 
   devise_for :users
   get '/next-topics/' => 'topics#next_5', as: :next_topics
@@ -27,6 +9,8 @@ Rails.application.routes.draw do
   resources :topics do
     resources :bookmarks #, only: [:new, :destroy, :edit, :update]
   end
+
+  post :incoming, to: 'incoming#create'
 
   get 'welcome/about'
   get 'welcome/index'

@@ -98,4 +98,20 @@ Rails.application.configure do
     #config.action_mailer.smtp_settings = {:address => "localhost", :port => "1025"}
     #config.action_mailer.raise_delivery_errors = true
 
+    # This interceptor just makes sure that local mail
+    # only emails you.
+    # http://edgeguides.rubyonrails.org/action_mailer_basics.html#intercepting-emails
+    class DevelopmentMailInterceptor
+      def self.delivering_email(message)
+        message.to =  'youremail@website.com'
+        message.cc = nil
+        message.bcc = nil
+      end
+    end
+
+    # Locally, outgoing mail will be 'intercepted' by the
+    # above DevelopmentMailInterceptor before going out
+    if Rails.env.development?
+      ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
+    end
 end
