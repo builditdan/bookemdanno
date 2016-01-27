@@ -1,7 +1,7 @@
 <br>
 Bookmarks</br>
 <small>
-  <%= "Its lonley with no bookmarks! :)" if topic.bookmarks.blank? %>
+  <%= "It's lonely with no bookmarks! :)" if topic.bookmarks.blank? %>
   <% topic.bookmarks.each do |the_bookmark| %>
    <%# Why do I have to call out each param %>
    <%= link_to "", topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id) , method: :delete, class: 'glyphicon glyphicon-remove' %>

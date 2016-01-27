@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Pundit
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized, except: [:incoming]
 
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!, except: [:index, :show]
+  #before_action :authenticate_user!, except: [:index, :show]
 
 
 
