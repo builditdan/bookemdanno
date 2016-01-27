@@ -7,8 +7,8 @@ gem 'rails', '4.2.5'
 
 group :production do
    #need to install postgress
-   #gem 'pg'
-   #gem 'rails_12factor'
+   gem 'pg'
+   gem 'rails_12factor'
 end
 
 gem "faker"
