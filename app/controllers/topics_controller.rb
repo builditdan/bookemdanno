@@ -22,7 +22,6 @@ class TopicsController < ApplicationController
 
   def next_5
 
-    @enablenav = true
     ipp = current_user.items_per_page
     @last_id = Topic.show_to(current_user.id).last.id
     @topics = Topic.show_by_offset_to(current_user.id,params[:next_offset].to_i)
@@ -59,8 +58,8 @@ class TopicsController < ApplicationController
   end
 
   def show
+    @route_back_to = topic_path
     @topic = Topic.find(params[:id])
-
   end
 
   def new
@@ -80,8 +79,8 @@ class TopicsController < ApplicationController
   end
 
   def update
-    @topic = Topic.new(topic_params)
-    @topic.user_id = current_user.id
+    @topic = Topic.find(params[:id])
+    @topic.assign_attributes(topic_params)
     if @topic.save
       redirect_to @topic, notice: "Topic was saved successfully."
     else

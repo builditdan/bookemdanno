@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get '/previous-topics/' => 'topics#previous_5', as: :previous_topics
 
   resources :topics do
-    resources :bookmarks #only: [:show]
+    resources :bookmarks #, only: [:new, :destroy, :edit, :update]
   end
 
   get 'welcome/about'
