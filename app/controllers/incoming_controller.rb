@@ -29,7 +29,7 @@ class IncomingController < ApplicationController
       return head 401 #:Unauthorized
     end
 
-    if incoming_urls.nil?
+    if incoming_urls.nil? || incoming_urls.empty?
       logger.info "No urls found, exiting"
       return head 200 #:ok
     end
@@ -39,8 +39,6 @@ class IncomingController < ApplicationController
       logger.info "Not a valid user: #{incoming_email}, exiting"
       return head 401 #:Unauthorized
     end
-
-    logger.info "Checking topics now!!!!!"
 
     incoming_topic = "Email submitted url with no topic as of #{Time.new}" if incoming_topic.nil?
 
