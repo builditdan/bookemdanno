@@ -14,7 +14,7 @@ class IncomingController < ApplicationController
     logger.info "email:#{params[:sender]}"
     logger.info "***********************************"
 
-    incoming_urls = URI.extract(params[:"body_plain"])
+    incoming_urls = URI.extract(params[:"body-plain"])
     incoming_topic =  params[:subject]
     incoming_email =  params[:sender]
 
