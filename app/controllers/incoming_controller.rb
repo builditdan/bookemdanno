@@ -25,23 +25,22 @@ class IncomingController < ApplicationController
     incoming_urls.delete_if {|url| (url.include? "wrote:") || (!url.include? "http") }
 
     if incoming_email.nil?
-      logger.warn "No email provided, exiting"
-      #return head(:Unauthorized)
-      return head(:ok)
+      logger.info "No email provided, exiting"
+      return head 401 #:Unauthorized
     end
 
     if incoming_urls.nil?
-      logger.warn "No urls found, exiting"
-      return head(:ok)
-      #return head(:ok)
+      logger.info "No urls found, exiting"
+      return head 200 #:ok
     end
 
     user = User.find_by(email:incoming_email)
     if user.blank?
-      logger.warn "Not a valid user: #{incoming_email}, exiting"
-      #return head(:Unauthorized)
-      return head(:ok)
+      logger.info "Not a valid user: #{incoming_email}, exiting"
+      return head 401 #:Unauthorized
     end
+
+    logger.info "Checking topics now!!!!!"
 
     incoming_topic = "Email submitted url with no topic as of #{Time.new}" if incoming_topic.nil?
 
@@ -53,9 +52,8 @@ class IncomingController < ApplicationController
       if topic.save
          logger.info "New topic created #{topic.title}"
       else
-         logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
-         #return head(:internal_server_error)
-         return head(:ok)
+         logger.info "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
+         return head 500 # :internal_server_error
       end
 
     end
@@ -68,11 +66,11 @@ class IncomingController < ApplicationController
       if bookmark.save
           logger.info "New bookmark created #{a_url}"
       else
-          logger.warn "Unable to save bookmark #{a_url}, bookmark not stored, bummer!"
+          logger.info "Unable to save bookmark #{a_url}, bookmark not stored, bummer!"
       end
     }
 
-    head :ok
+    head 200 #:ok
 
   end
 
