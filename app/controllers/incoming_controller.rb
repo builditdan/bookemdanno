@@ -9,12 +9,12 @@ class IncomingController < ApplicationController
   def create
     puts "INCOMING PARAMS HERE: #{params}"
     logger.info "***********************************"
-    logger.info "body:#{params[:body-plain]}"
+    logger.info "body:#{params[:"body-plain"]}"
     logger.info "subject:#{params[:subject]}"
     logger.info "email:#{params[:sender]}"
     logger.info "***********************************"
 
-    incoming_urls = URI.extract(params[:body_plain])
+    incoming_urls = URI.extract(params[:"body_plain"])
     incoming_topic =  params[:subject]
     incoming_email =  params[:sender]
 
