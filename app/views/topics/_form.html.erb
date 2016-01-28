@@ -11,8 +11,8 @@
 
     <% if @enablenav %>
       <ul class="pagination">
-        <%= link_to "Previous Topic", previous_topics_path(next_offset:params[:next_offset],previous_offset:params[:previous_offset]), method: :get, class: 'btn btn-success' %>
-        <%= link_to "Next Topic", next_topics_path(next_offset:params[:next_offset],previous_offset:params[:previous_offset]), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Previous Topic", previous_topics_path(next_offset:@next_offset,previous_offset:@previous_offset), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Next Topic", next_topics_path(next_offset:@next_offset,previous_offset:@previous_offset), method: :get, class: 'btn btn-success' %>
       </ul>
     <% end %>
 

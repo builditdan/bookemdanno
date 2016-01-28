@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   def show
     redirect_to (welcome_index_path) if current_user.blank?
     @user = current_user
-    #@items = Item.where(user_id: params[:id])
+    @no_topics = Topic.where(user_id: current_user.id).count
+    @no_bookmarks = Topic.joins("LEFT OUTER JOIN bookmarks ON bookmarks.topic_id = topics.id").count
 
   end
 

@@ -13,8 +13,8 @@ class TopicsController < ApplicationController
           @enablenav = true
         end
 
-        params[:next_offset] = (current_user.items_per_page).to_s
-        params[:previous_offset] = (find_last_previous * current_user.items_per_page).to_s
+        @next_offset = current_user.items_per_page
+        @previous_offset = find_last_previous * current_user.items_per_page
       else
         flash.now[:alert] = "No topics exist yet. Time to create them!"
       end
@@ -23,6 +23,9 @@ class TopicsController < ApplicationController
 
   def next_5
 
+    @next_offset = params[:next_offset].to_i
+    @previous_offset = params[:previous_offset].to_i
+
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id).count <= ipp
       @enablenav = false
@@ -31,22 +34,25 @@ class TopicsController < ApplicationController
     end
 
     @last_id = Topic.show_to(current_user.id).last.id
-    @topics = Topic.show_by_offset_to(current_user.id,params[:next_offset].to_i)
+    @topics = Topic.show_by_offset_to(current_user.id, @next_offset)
     if @last_id == @topics.last.id
-      params[:previous_offset] = ((params[:next_offset].to_i) - ipp).to_s
-      params[:next_offset] = (0).to_s
-    elsif params[:next_offset].to_i == 0
-      params[:previous_offset] = (find_last_previous * ipp).to_s
-      params[:next_offset] = ((params[:next_offset].to_i) + ipp).to_s
+      @previous_offset = @next_offset - ipp
+      @next_offset = 0
+    elsif @next_offset == 0
+      @previous_offset = find_last_previous * ipp
+      @next_offset = @next_offset + ipp
     else
-      params[:previous_offset] = (params[:next_offset].to_i - ipp).to_s
-      params[:next_offset] = ((params[:next_offset].to_i) + ipp).to_s
+      @previous_offset = @next_offset - ipp
+      @next_offset = @next_offset + ipp
     end
 
   end
 
   def previous_5
 
+    @next_offset = params[:next_offset].to_i
+    @previous_offset = params[:previous_offset].to_i
+
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id).count <= ipp
       @enablenav = false
@@ -55,19 +61,17 @@ class TopicsController < ApplicationController
     end
 
     @last_id = Topic.show_to(current_user.id).last.id
-    @topics = Topic.show_by_offset_to(current_user.id,params[:previous_offset].to_i)
-    if params[:previous_offset].to_i == 0
-      params[:next_offset] = (ipp).to_s
-      params[:previous_offset] = (find_last_previous * ipp).to_s
-    elsif params[:next_offset].to_i == ipp
-      params[:next_offset] = (0).to_i
-      params[:previous_offset] = (params[:previous_offset].to_i - ipp).to_s
+    @topics = Topic.show_by_offset_to(current_user.id, @previous_offset)
+    if @previous_offset == 0
+      @next_offset = ipp
+      @previous_offset = find_last_previous * ipp
+    elsif @next_offset == ipp
+      @next_offset = 0
+      @previous_offset = @previous_offset - ipp
     else
-      params[:previous_offset] = (params[:previous_offset].to_i - ipp).to_s
-      params[:next_offset] = (params[:previous_offset].to_i + (ipp *2)).to_s
+      @previous_offset = @previous_offset - ipp
+      @next_offset = @previous_offset + (ipp *2)
     end
-    Rails.logger.debug params
-    Rails.logger.info "doing this"
   end
 
   def show

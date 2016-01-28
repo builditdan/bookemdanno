@@ -16,7 +16,11 @@
          <p><span style="font-weight:bold;">Email: </span><%= @user.email %><br>
          <span style="font-weight:bold;">Last signed in: </span><%= @user.last_sign_in_at %><br>
          <span style="font-weight:bold;">Member since: </span><%= @user.created_at %></p>
-         <p><span style="font-weight:bold;">Number of bookmark items: </span><%= 30000 %><br></p>
+         <p><span style="font-weight:bold;">Number of topics: </span><%= @no_topics %><br>
+         <span style="font-weight:bold;">Number of bookmarks: </span><%= @no_bookmarks %><br></p>
+
+
+
        </h4>
        <br>
        <%= link_to "Edit Registration", edit_user_registration_path, class: 'btn btn-primary' %>
