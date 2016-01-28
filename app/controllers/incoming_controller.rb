@@ -28,6 +28,7 @@ class IncomingController < ApplicationController
     if user.blank?
       logger.warn "Not a valid user: #{incoming_email}, exiting"
       head :Accepted
+      return
     end
 
     topic = Topic.find_by(title:incoming_topic)
@@ -40,6 +41,7 @@ class IncomingController < ApplicationController
       else
          logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
          head :Accepted
+         return
       end
     end
 
