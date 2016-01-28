@@ -7,8 +7,8 @@ class IncomingController < ApplicationController
   #before_action :authenticate_user!, except: [:create]
 
   def create
-    #puts "INCOMING PARAMS HERE: #{params}"
-    incoming_urls = URI.extract(params[:body-plain])
+    puts "INCOMING PARAMS HERE: #{params}"
+    incoming_urls = URI.extract(params[:body_plain])
     incoming_topic =  params[:subject]
     incoming_email =  params[:sender]
 
