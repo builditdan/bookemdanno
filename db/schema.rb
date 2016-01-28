@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126152358) do
+ActiveRecord::Schema.define(version: 20160128151904) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.string   "url"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160126152358) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "items_per_page"
+    t.integer  "items_per_page",         default: 5
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

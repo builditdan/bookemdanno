@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
         else
           @enablenav = true
         end
-        params[:next_offset] = (current_user.items_per_page).to_s #Topic.count - (Topic.count % 5)
+        params[:next_offset] = (current_user.items_per_page).to_s 
         params[:previous_offset] = (find_last_previous * current_user.items_per_page).to_s
       else
         flash.now[:alert] = "No topics exist yet. Time to create them!"
