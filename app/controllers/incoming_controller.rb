@@ -58,4 +58,6 @@ class IncomingController < ApplicationController
 
     end
 
+    head 200
+
 end
