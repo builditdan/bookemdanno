@@ -12,7 +12,8 @@ class TopicsController < ApplicationController
         else
           @enablenav = true
         end
-        params[:next_offset] = (current_user.items_per_page).to_s 
+
+        params[:next_offset] = (current_user.items_per_page).to_s
         params[:previous_offset] = (find_last_previous * current_user.items_per_page).to_s
       else
         flash.now[:alert] = "No topics exist yet. Time to create them!"
@@ -23,6 +24,12 @@ class TopicsController < ApplicationController
   def next_5
 
     ipp = current_user.items_per_page
+    if Topic.show_to(current_user.id).count <= ipp
+      @enablenav = false
+    else
+      @enablenav = true
+    end
+
     @last_id = Topic.show_to(current_user.id).last.id
     @topics = Topic.show_by_offset_to(current_user.id,params[:next_offset].to_i)
     if @last_id == @topics.last.id
@@ -40,8 +47,13 @@ class TopicsController < ApplicationController
 
   def previous_5
 
-    @enablenav = true
     ipp = current_user.items_per_page
+    if Topic.show_to(current_user.id).count <= ipp
+      @enablenav = false
+    else
+      @enablenav = true
+    end
+
     @last_id = Topic.show_to(current_user.id).last.id
     @topics = Topic.show_by_offset_to(current_user.id,params[:previous_offset].to_i)
     if params[:previous_offset].to_i == 0
