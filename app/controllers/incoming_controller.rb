@@ -26,22 +26,36 @@ class IncomingController < ApplicationController
 
     user = User.find_by(email:incoming_email)
     if user.blank?
-      logger.warn "Not a valid user: #{incoming_email}, exiting and not adding any bookmarks"
-    else
-      incoming_urls.each { |a_url|
-        bookmark = Bookmark.new
-        #a_url = "FIX->#{a_url}" if !(a_url =~ URI::regexp)
-        bookmark.url = a_url
-        bookmark.topic_id = topic.id
-        if !(a_url.include? "wrote:") && bookmark.save
-            logger.info "New bookmark created #{a_url}"
-        else
-            logger.warn "Unable to save bookmark #{a_url}, bookmark not stored, bummer!"
-        end
-      }
+      logger.warn "Not a valid user: #{incoming_email}, exiting"
+      return
     end
 
+    topic = Topic.find_by(title:incoming_topic)
+    if topic.blank?
+      topic = Topic.create
+      topic.title = incoming_topic
+      topic.user_id = user.id
+      if topic.save
+         logger.info "New topic created #{topic.title}"
+      else
+         logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
+         return
+      end
+    end
 
-  end
+    incoming_urls.each { |a_url|
+      bookmark = Bookmark.new
+      #a_url = "FIX->#{a_url}" if !(a_url =~ URI::regexp)
+      bookmark.url = a_url
+      bookmark.topic_id = topic.id
+
+      if bookmark.save
+          logger.info "New bookmark created #{a_url}"
+      else
+          logger.warn "Unable to save bookmark #{a_url}, bookmark not stored, bummer!"
+      end
+    }
+
+    end
 
 end
