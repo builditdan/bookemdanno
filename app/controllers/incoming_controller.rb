@@ -19,11 +19,11 @@ class IncomingController < ApplicationController
     incoming_email =  params[:sender]
 
     logger.info "Incoming sender: #{incoming_email}"
-    logger.info "Incoming subject: #{incoming_subject}"
+    logger.info "Incoming subject: #{incoming_topic}"
     logger.info "Incoming urls: #{incoming_urls}"
 
-    the_user = User.find_by(email:incoming_email)
-    if the_user.blank?
+    user = User.find_by(email:incoming_email)
+    if user.blank?
       logger.warn "Not a valid user: #{incoming_email}, exiting"
       exit
     end
@@ -32,7 +32,7 @@ class IncomingController < ApplicationController
     if topic.blank?
       topic = Topic.create
       topic.title = incoming_topic
-      topic.user_id = the_user.id
+      topic.user_id = user.id
       if topic.save
          logger.info "New topic created #{topic.title}"
       else
@@ -48,7 +48,7 @@ class IncomingController < ApplicationController
       bookmark.topic_id = topic.id
 
       if bookmark.save
-          logger.info "New bookmark created #{bookmark.url}"
+          logger.info "New bookmark created #{a_url}"
       else
           logger.warn "Unable to save bookmark #{a_url}, bookmark not stored, bummer!"
       end
