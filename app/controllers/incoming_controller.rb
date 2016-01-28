@@ -9,7 +9,7 @@ class IncomingController < ApplicationController
   def create
     puts "INCOMING PARAMS HERE: #{params}"
     logger.info "***********************************"
-    logger.info "body:#{params[:body_plain]}"
+    logger.info "body:#{params[:body-plain]}"
     logger.info "subject:#{params[:subject]}"
     logger.info "email:#{params[:sender]}"
     logger.info "***********************************"
