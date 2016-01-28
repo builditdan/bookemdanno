@@ -22,13 +22,25 @@ class IncomingController < ApplicationController
     logger.info "Incoming subject: #{incoming_topic}"
     logger.info "Incoming urls: #{incoming_urls}"
 
-    incoming_urls.delete_if {|url| url.include? "wrote:" }
+    incoming_urls.delete_if {|url| (url.include? "wrote:") || (!url.include? "http") }
+
+    if incoming_email.nil?
+      logger.warn "No email provided, exiting"
+      return head(:Unauthorized)
+    end
+
+    if incoming_urls.nil?
+      logger.warn "No urls found, exiting"
+      return head(:ok)
+    end
 
     user = User.find_by(email:incoming_email)
     if user.blank?
       logger.warn "Not a valid user: #{incoming_email}, exiting"
-      return head(:ok)
+      return head(:Unauthorized)
     end
+
+    incoming_topic = "Email submitted url with no topic as of #{Time.new}" if incoming_topic.nil?
 
     topic = Topic.find_by(title:incoming_topic)
     if topic.blank?
@@ -39,17 +51,16 @@ class IncomingController < ApplicationController
          logger.info "New topic created #{topic.title}"
       else
          logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
-         return head(:ok)
+         return head(:internal_server_error)
       end
 
     end
 
     incoming_urls.each { |a_url|
       bookmark = Bookmark.new
-      #a_url = "FIX->#{a_url}" if !(a_url =~ URI::regexp)
+      #if !(a_url =~ URI::regexp)
       bookmark.url = a_url
       bookmark.topic_id = topic.id
-
       if bookmark.save
           logger.info "New bookmark created #{a_url}"
       else
