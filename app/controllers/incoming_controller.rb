@@ -40,6 +40,8 @@ class IncomingController < ApplicationController
       else
          logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
          return head(:ok)
+      end
+
     end
 
     incoming_urls.each { |a_url|
@@ -57,7 +59,7 @@ class IncomingController < ApplicationController
 
     head :ok
 
-    end
+  end
 
 
 
