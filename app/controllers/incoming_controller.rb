@@ -26,18 +26,21 @@ class IncomingController < ApplicationController
 
     if incoming_email.nil?
       logger.warn "No email provided, exiting"
-      return head(:Unauthorized)
+      #return head(:Unauthorized)
+      return head(:ok)
     end
 
     if incoming_urls.nil?
       logger.warn "No urls found, exiting"
       return head(:ok)
+      #return head(:ok)
     end
 
     user = User.find_by(email:incoming_email)
     if user.blank?
       logger.warn "Not a valid user: #{incoming_email}, exiting"
-      return head(:Unauthorized)
+      #return head(:Unauthorized)
+      return head(:ok)
     end
 
     incoming_topic = "Email submitted url with no topic as of #{Time.new}" if incoming_topic.nil?
@@ -51,7 +54,8 @@ class IncomingController < ApplicationController
          logger.info "New topic created #{topic.title}"
       else
          logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
-         return head(:internal_server_error)
+         #return head(:internal_server_error)
+         return head(:ok)
       end
 
     end
