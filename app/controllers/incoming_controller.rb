@@ -27,8 +27,7 @@ class IncomingController < ApplicationController
     user = User.find_by(email:incoming_email)
     if user.blank?
       logger.warn "Not a valid user: #{incoming_email}, exiting"
-      head :Accepted
-      return
+      return head(:ok)
     end
 
     topic = Topic.find_by(title:incoming_topic)
@@ -40,9 +39,7 @@ class IncomingController < ApplicationController
          logger.info "New topic created #{topic.title}"
       else
          logger.warn "Unable to save topic #{incoming_topic}, no bookmarks will be stored, bummer!"
-         head :Accepted
-         return
-      end
+         return head(:ok)
     end
 
     incoming_urls.each { |a_url|
