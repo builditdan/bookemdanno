@@ -1,6 +1,6 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
   validates :title, length: { minimum: 5, maximum: 300 }, presence: true
   #default_scope { order(' updated_at DESC, title ASC') }
   default_scope { order(' updated_at DESC, title ASC') }

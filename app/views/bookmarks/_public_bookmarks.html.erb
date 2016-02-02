@@ -6,7 +6,7 @@
   <% if topic.public %>
     <% topic.bookmarks.show_bookmarks_filter(filter).each do |the_bookmark| %>
       <% if the_bookmark.public %>
-
+        <%= render partial: 'likes/like', locals: { bookmark: the_bookmark, topic: topic } %>
         <%= link_to image_tag("http://www.google.com/s2/favicons?domain=#{the_bookmark.url}"), "#{the_bookmark.url}" %>
         <%= link_to "#{the_bookmark.url}", "#{the_bookmark.url}", target: "_blank" %>
         <br>

@@ -12,7 +12,7 @@ before_action :authenticate_user!
     @bookmark = @topic.bookmarks.build(bookmark_params)
     authorize(@bookmark)
     if @bookmark.save
-      redirect_to topic_path(params[:topic_id]), notice: "Bookmark was saved successfully."
+      redirect_to topic_path(params[:topic_id]) , notice: "Bookmark was saved successfully."
     else
       flash.now[:alert] = "Error creating bookmark. Please try again."
       render :new
@@ -42,10 +42,9 @@ before_action :authenticate_user!
   def destroy
     @bookmark = Bookmark.find(params[:id])
     authorize(@bookmark)
-
     if @bookmark.destroy
       flash[:notice] = "\"#{@bookmark.url}\" was deleted successfully along with associated bookmarks."
-      redirect_to topic_path(params[:topic_id])
+      redirect_to :back #topic_path(params[:topic_id])
     else
       flash.now[:alert] = "There was an error deleteing the bookmark."
       redirect_to :back
@@ -66,10 +65,10 @@ before_action :authenticate_user!
       authorize($bookmark)
       if $bookmark.save
         update_topics_privacy
-        redirect_to topic_path($topic.id)
+        redirect_to :back #topic_path($topic.id)
       else
         flash.now[:alert] = "Error creating topic. Please try again."
-        redirect_to topic_path($topic.id)
+        redirect_to :back #topic_path($topic.id)
       end
 
 

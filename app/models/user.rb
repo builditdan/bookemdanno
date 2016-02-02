@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :topics
-  
+  has_many :likes, dependent: :destroy
+
 
   before_save {
     self.email = email.downcase
@@ -36,5 +37,12 @@ class User < ActiveRecord::Base
 
   #attr_accessible :email, :password, :name, :password_confirmation
   enum role: [:standard, :premium, :admin]
+
+
+  def liked(bookmark)
+     Like.where(bookmark_id: bookmark.id).first
+  end
+
+
 
 end

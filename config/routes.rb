@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   post '/share_bookmark/:id' => 'bookmarks#share_bookmark', as: :share_bookmark
 
   resources :topics do
-    resources :bookmarks #, only: [:new, :destroy, :edit, :update]
+    resources :bookmarks do #, only: [:new, :destroy, :edit, :update]
+      resources :likes, only: [:create, :destroy]
+    end
     #post '/up-vote' => 'votes#up_vote', as: :up_vote
     #post '/down-vote' => 'votes#down_vote', as: :down_vote
 

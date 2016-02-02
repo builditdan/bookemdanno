@@ -1,4 +1,4 @@
-class TopicPolicy < ApplicationPolicy
+class LikePolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,19 +7,11 @@ class TopicPolicy < ApplicationPolicy
 
   end
 
-  def filter?
+  def create?
     user_logged_in?
   end
 
-  def next_5?
-    user_logged_in?
-  end
-
-  def previous_5?
-    user_logged_in?
-  end
-
-  def public?
+  def destroy?
     user_logged_in?
   end
 
