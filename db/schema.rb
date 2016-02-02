@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128151904) do
+ActiveRecord::Schema.define(version: 20160129181908) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.string   "url"
     t.integer  "topic_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "public",     default: false
   end
 
   add_index "bookmarks", ["topic_id"], name: "index_bookmarks_on_topic_id"
@@ -25,8 +26,9 @@ ActiveRecord::Schema.define(version: 20160128151904) do
   create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "public",     default: false
   end
 
   add_index "topics", ["user_id"], name: "index_topics_on_user_id"

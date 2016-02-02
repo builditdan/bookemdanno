@@ -1,11 +1,23 @@
 <div class="media">
   <div class="media-body">
-    <h4 class="media-heading">
-      <%= link_to "#{topic.title} - #{topic.id}", topic %>
-    </h4>
 
-    <%= render partial: "bookmarks/bookmarks", locals: {topic: topic} %>
-    
+    <% if topic.bookmarks.show_bookmarks_filter(@filter).count > 0 %>
+
+      <% if @showing_public %>
+        <h4 class="media-heading">
+           <%= topic.title %>
+           <br>
+          <small>Shared by <span style="color:orange;"><%= "#{user_name}" %></span></small>
+        </h4>
+        <%= render partial: "bookmarks/public_bookmarks", locals: {topic: topic, filter: @filter } %>
+      <% else %>
+        <h4 class="media-heading">
+          <%= link_to "#{topic.title}", topic %>
+        </h4>
+         <%= render partial: "bookmarks/your_bookmarks", locals: {topic: topic, filter: @filter} %>
+      <% end %>
+      <br>
+    <% end%>
+
   </div>
 </div>
-<br>

@@ -1,13 +1,16 @@
-<h1><%= @topic.title %></h1>
-<hr>
+<h1><%= @topic.title %><hr></h1>
+
 
 
  <div class="row">
 
    <div class="col-md-10">
      <p class="lead">
-       <%# render partial: "topics", locals: {topic: @topic} %>
-       <%= render partial: "bookmarks/bookmarks", locals: {topic: @topic} %>
+       <% if @showing_public %>
+          <%= render partial: "bookmarks/public_bookmarks", locals: {topic: @topic, filter: @filter} %>
+       <% else %>
+          <%= render partial: "bookmarks/your_bookmarks", locals: {topic: @topic, filter: @filter} %>
+       <% end %>
      </p>
    </div>
 

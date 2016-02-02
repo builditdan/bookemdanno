@@ -3,11 +3,19 @@ Rails.application.routes.draw do
 
 
   devise_for :users
+
   get '/next-topics/' => 'topics#next_5', as: :next_topics
   get '/previous-topics/' => 'topics#previous_5', as: :previous_topics
+  get '/public-topics/' => 'topics#public', as: :public_topics
+  get '/filter/' => 'topics#filter', as: :filter_topics
+
+  post '/share_bookmark/:id' => 'bookmarks#share_bookmark', as: :share_bookmark
 
   resources :topics do
     resources :bookmarks #, only: [:new, :destroy, :edit, :update]
+    #post '/up-vote' => 'votes#up_vote', as: :up_vote
+    #post '/down-vote' => 'votes#down_vote', as: :down_vote
+
   end
 
   post :incoming, to: 'incoming#create'

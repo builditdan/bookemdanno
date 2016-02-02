@@ -1,0 +1,18 @@
+<br>
+ <span style = "text-decoration:underline">Bookmark</span><br>
+
+<small>
+  <%= "It's lonely with no bookmarks! :)" if topic.bookmarks.blank? %>
+  <% if topic.public %>
+    <% topic.bookmarks.show_bookmarks_filter(filter).each do |the_bookmark| %>
+      <% if the_bookmark.public %>
+
+        <%= link_to image_tag("http://www.google.com/s2/favicons?domain=#{the_bookmark.url}"), "#{the_bookmark.url}" %>
+        <%= link_to "#{the_bookmark.url}", "#{the_bookmark.url}", target: "_blank" %>
+        <br>
+      <% end %>
+
+    <% end %>
+  <% end %>
+
+</small>

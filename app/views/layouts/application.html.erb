@@ -25,7 +25,8 @@
 
         <ul span class="nav navbar-nav navbar-right">
            <% if user_signed_in? %>
-            <li><%= link_to "Bookmark Mgmt", topics_path %></li>
+            <li><%= link_to "Your Bookmarks", topics_path %></li>
+            <li><%= link_to "Public Bookmarks", public_topics_path %></li>
             <li><%= link_to "Account", users_show_path(current_user) %></li>
             <li><%= link_to "About", "#" %></li>
             <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
@@ -58,7 +59,7 @@
          <% end %>
        </div>
 
-          
+
 
       <% if params[:controller] != "welcome" %>
         <div class="container ">

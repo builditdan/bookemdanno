@@ -1,10 +1,18 @@
-<h1>Bookmarks by Topic</h1>
-<hr>
+<% if @showing_public %>
+  <h1 style="color:#0896BE;"><span style="color:#67C067;">Public</span> Bookmarks by Topic<hr>
+</h1>
+  <small style="padding-left:25px"><%= "filtered by '#{@filter}'" if !@filter.nil? %></small>
+<% else %>
+  <h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Bookmarks by Topic<hr>
+</h1>
+  <small style="padding-left:25px"><%= "filtered by '#{@filter}'" if !@filter.nil? %></small>
+<% end %>
 
 <div class="row pagination">
-  <div class="col-md-10">
+  <div class="col-md-8">
     <% topics.each do |the_topic| %>
-      <%= render partial: "topics", locals: {topic: the_topic} %>
+      <% user = User.find(the_topic.user_id) %>
+      <%= render partial: "topics", locals: {topic: the_topic, user_name: user.name} %>
     <% end %>
 
     <br><br>
@@ -17,11 +25,27 @@
     <% end %>
 
   </div>
-  <div class="col-md-2">
-    <%# if user_is_authorized_to_delete_topics? %>
-      <div class="col-md-4">
-        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+  <div class="col-md-4">
 
-      </div>
-    <%# end %>
+
+     <%= form_tag(filter_topics_path, method: "get") do %>
+          <%= label_tag(:filter, "Filter:") %>
+          <%= text_field_tag(:filter) %>
+          <%= hidden_field_tag(:showing_public, @showing_public) %>
+          <br>
+          <%= submit_tag("Filter", class: "btn btn-success btn-spacing",) %>
+          <% if @showing_public %>
+            <%= link_to "Reset", public_topics_path, class: 'btn btn-success btn-spacing'  %>
+          <% else %>
+            <%= link_to "Reset", topics_path, class: 'btn btn-success btn-spacing'  %>
+          <% end %>
+
+     <% end %>
+
+    <%# link_to "Filter", new_topic_path, class: 'btn btn-success btn-spacing' %>
+    <br>
+    <br>
+    <% if !@showing_public %>
+        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success btn-spacing' %>
+    <% end %>
   </div>
