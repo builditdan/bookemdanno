@@ -28,19 +28,21 @@
   <div class="col-md-4">
 
 
-     <%= form_tag(filter_topics_path, method: "get") do %>
-          <%= label_tag(:filter, "Filter:") %>
-          <%= text_field_tag(:filter) %>
-          <%= hidden_field_tag(:showing_public, @showing_public) %>
-          <br>
-          <%= submit_tag("Filter", class: "btn btn-success btn-spacing",) %>
-          <% if @showing_public %>
-            <%= link_to "Reset", public_topics_path, class: 'btn btn-success btn-spacing'  %>
-          <% else %>
-            <%= link_to "Reset", topics_path, class: 'btn btn-success btn-spacing'  %>
-          <% end %>
+    <% if !@topics.blank? %>
+       <%= form_tag(filter_topics_path, method: "get") do %>
+            <%= label_tag(:filter, "Filter:") %>
+            <%= text_field_tag(:filter) %>
+            <%= hidden_field_tag(:showing_public, @showing_public) %>
+            <br>
+            <%= submit_tag("Filter", class: "btn btn-success btn-spacing",) %>
+            <% if @showing_public %>
+              <%= link_to "Reset", public_topics_path, class: 'btn btn-success btn-spacing'  %>
+            <% else %>
+              <%= link_to "Reset", topics_path, class: 'btn btn-success btn-spacing'  %>
+            <% end %>
 
-     <% end %>
+       <% end %>
+    <% end %>
 
     <%# link_to "Filter", new_topic_path, class: 'btn btn-success btn-spacing' %>
     <br>
