@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-
+before_action :authenticate_user!
 
   def filter
       @showing_public = params[:showing_public]

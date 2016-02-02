@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+before_action :authenticate_user!
 
   def show
     redirect_to (welcome_index_path) if current_user.blank?
