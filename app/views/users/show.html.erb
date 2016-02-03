@@ -19,13 +19,17 @@
          <p><span style="font-weight:bold;">Number of topics: </span><%= @no_topics %><br>
          <span style="font-weight:bold;">Number of bookmarks: </span><%= @no_bookmarks %><br></p>
 
-
-
        </h4>
        <br>
        <%= link_to "Edit Registration", edit_user_registration_path, class: 'btn btn-primary' %>
     </div>
 
+<%# display3("http://www.f1dan.com/") %>
+
+<div class="col-md-12" style="margin-top:50px;">
+  <h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Favorite Bookmarks by Topic<hr></h1>
+<%= render partial: "topics/form", locals: {topics: @topics} %>
+</div>
 
 
 <br>

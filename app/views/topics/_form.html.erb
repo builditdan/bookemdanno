@@ -1,34 +1,24 @@
-<% if @showing_public %>
-  <h1 style="color:#0896BE;"><span style="color:#67C067;">Public</span> Bookmarks by Topic<hr>
-</h1>
-  <small style="padding-left:25px"><%= "filtered by '#{@filter}'" if !@filter.nil? %></small>
-<% else %>
-  <h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Bookmarks by Topic<hr>
-</h1>
-  <small style="padding-left:25px"><%= "filtered by '#{@filter}'" if !@filter.nil? %></small>
-<% end %>
 
 <div class="row pagination">
   <div class="col-md-8">
     <% topics.each do |the_topic| %>
       <% user = User.find(the_topic.user_id) %>
-      <%= render partial: "topics", locals: {topic: the_topic, user_name: user.name} %>
+      <%= render partial: "topics/topics", locals: {topic: the_topic, user_name: user.name} %>
     <% end %>
 
     <br><br>
 
     <% if @enablenav %>
       <ul class="pagination">
-        <%= link_to "Previous Topic", previous_topics_path(next_offset:@next_offset,previous_offset:@previous_offset), method: :get, class: 'btn btn-success' %>
-        <%= link_to "Next Topic", next_topics_path(next_offset:@next_offset,previous_offset:@previous_offset), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Previous Topic", previous_topics_path(next_offset:@next_offset,previous_offset:@previous_offset,showing_public:@showing_public), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Next Topic", next_topics_path(next_offset:@next_offset,previous_offset:@previous_offset,showing_public:@showing_public), method: :get, class: 'btn btn-success' %>
       </ul>
     <% end %>
 
   </div>
   <div class="col-md-4">
 
-
-    <% if !@topics.blank? %>
+    <% if !@topics.blank? && @filter != "~LIKED" %>
        <%= form_tag(filter_topics_path, method: "get") do %>
             <%= label_tag(:filter, "Filter:") %>
             <%= text_field_tag(:filter) %>

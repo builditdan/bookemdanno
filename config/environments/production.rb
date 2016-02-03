@@ -114,4 +114,6 @@ Rails.application.configure do
     if Rails.env.development?
       ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
     end
+
+    
 end

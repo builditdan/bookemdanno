@@ -1,2 +1,4 @@
+<h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Bookmarks by Topic<hr></h1>
+<small style="padding-left:25px"><%= "filtered by '#{@filter}'" if !@filter.nil? %></small>
 
-<%= render partial: "form", locals: {topics: @topics, bookmarks: @bookmarks} %>
+<%= render partial: "form", locals: {topics: @topics} %>

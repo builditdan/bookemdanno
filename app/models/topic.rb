@@ -34,6 +34,13 @@ class Topic < ActiveRecord::Base
     end
   }
 
+  scope :show_liked_to, -> (user) {
+
+    Topic.joins(bookmarks: :likes).uniq
+
+
+  }
+
 
 
 end

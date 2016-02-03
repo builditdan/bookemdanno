@@ -2,12 +2,7 @@ class TopicsController < ApplicationController
 before_action :authenticate_user!
 
   def filter
-      @showing_public = params[:showing_public]
-      if @showing_public.downcase == "true"
-        @showing_public = true
-      else
-        @showing_public = false
-      end
+      @showing_public = assign_showing_public
       @filter = params[:filter]
 
       index_topics
@@ -34,6 +29,7 @@ before_action :authenticate_user!
 
     @next_offset = params[:next_offset].to_i
     @previous_offset = params[:previous_offset].to_i
+    @showing_public = assign_showing_public
 
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id, @showing_public).count <= ipp
@@ -44,6 +40,7 @@ before_action :authenticate_user!
 
     @last_id = Topic.show_to(current_user.id, @showing_public).last.id
     @topics = Topic.show_by_offset_to(current_user.id, @next_offset, @showing_public)
+
     authorize @topics
     if @last_id == @topics.last.id
       @previous_offset = @next_offset - ipp
@@ -62,6 +59,7 @@ before_action :authenticate_user!
 
     @next_offset = params[:next_offset].to_i
     @previous_offset = params[:previous_offset].to_i
+    @showing_public = assign_showing_public
 
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id, @showing_public).count <= ipp
@@ -167,6 +165,14 @@ before_action :authenticate_user!
       end
     end
 
+    def assign_showing_public
+      showing_public = params[:showing_public]
+      if showing_public.downcase == "true"
+        true
+      else
+        false
+      end
+    end
 
 
     def find_last_previous

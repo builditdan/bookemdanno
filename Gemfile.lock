@@ -70,6 +70,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    embedly (1.9.1)
+      json
+      oauth
+      querystring
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -103,6 +107,7 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    oauth (0.4.7)
     orm_adapter (0.5.0)
     pg (0.18.4)
     pry (0.10.3)
@@ -113,6 +118,7 @@ GEM
       pry (>= 0.9.10)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
+    querystring (0.1.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -221,6 +227,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise
+  embedly
   factory_girl_rails (~> 4.0)
   faker
   figaro (= 1.0)
