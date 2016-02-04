@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/previous-topics/' => 'topics#previous_5', as: :previous_topics
   get '/public-topics/' => 'topics#public', as: :public_topics
   get '/filter/' => 'topics#filter', as: :filter_topics
+  post '/preview_bookmarks/' => 'bookmarks#preview_bookmarks', as: :preview_bookmarks
 
   post '/share_bookmark/:id' => 'bookmarks#share_bookmark', as: :share_bookmark
 

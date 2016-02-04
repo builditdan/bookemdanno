@@ -38,7 +38,6 @@ class Topic < ActiveRecord::Base
 
     Topic.joins(bookmarks: :likes).uniq
 
-
   }
 
 

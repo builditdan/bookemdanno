@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
 before_action :authenticate_user!
 
   def filter
-      @showing_public = assign_showing_public
+      @showing_public = (params[:showing_public]=='true')
       @filter = params[:filter]
 
       index_topics
@@ -29,7 +29,8 @@ before_action :authenticate_user!
 
     @next_offset = params[:next_offset].to_i
     @previous_offset = params[:previous_offset].to_i
-    @showing_public = assign_showing_public
+    @showing_public = (params[:showing_public]=='true')
+    @filter = nil
 
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id, @showing_public).count <= ipp
@@ -59,7 +60,8 @@ before_action :authenticate_user!
 
     @next_offset = params[:next_offset].to_i
     @previous_offset = params[:previous_offset].to_i
-    @showing_public = assign_showing_public
+    @showing_public = (params[:showing_public]=='true')
+    @filter = nil
 
     ipp = current_user.items_per_page
     if Topic.show_to(current_user.id, @showing_public).count <= ipp
@@ -148,7 +150,8 @@ before_action :authenticate_user!
          @topics = Topic.show_5_to(current_user.id, @showing_public)
        else
          @topics = Topic.show_to(current_user.id, @showing_public)
-       end
+      end
+
       if !@topics.blank?
         @last_id = Topic.show_to(current_user.id, @showing_public).last.id
         ipp = current_user.items_per_page
@@ -164,16 +167,6 @@ before_action :authenticate_user!
         flash.now[:alert] = "No topics exist yet. Time to create them!"
       end
     end
-
-    def assign_showing_public
-      showing_public = params[:showing_public]
-      if showing_public.downcase == "true"
-        true
-      else
-        false
-      end
-    end
-
 
     def find_last_previous
       ipp = current_user.items_per_page

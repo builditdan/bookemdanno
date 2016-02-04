@@ -1,4 +1,4 @@
-
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 <h1>User Profile</h1>
 <hr>
 
@@ -24,10 +24,9 @@
        <%= link_to "Edit Registration", edit_user_registration_path, class: 'btn btn-primary' %>
     </div>
 
-<%# display3("http://www.f1dan.com/") %>
 
 <div class="col-md-12" style="margin-top:50px;">
-  <h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Favorite Bookmarks by Topic<hr></h1>
+  <h1 style="color:#0896BE;"> <span style="color:#67C067;">Your</span> Liked Bookmarks by Topic<hr></h1>
 <%= render partial: "topics/form", locals: {topics: @topics} %>
 </div>
 

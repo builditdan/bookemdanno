@@ -7,9 +7,9 @@
    <div class="col-md-10">
      <p class="lead">
        <% if @showing_public %>
-          <%= render partial: "bookmarks/public_bookmarks", locals: {topic: @topic, filter: @filter} %>
+          <%= render partial: "bookmarks/public_bookmarks", locals: {topic: @topic, filter: @filter, preview_bookmark: false} %>
        <% else %>
-          <%= render partial: "bookmarks/your_bookmarks", locals: {topic: @topic, filter: @filter} %>
+          <%= render partial: "bookmarks/your_bookmarks", locals: {topic: @topic, filter: @filter, preview_bookmark: false} %>
        <% end %>
      </p>
    </div>

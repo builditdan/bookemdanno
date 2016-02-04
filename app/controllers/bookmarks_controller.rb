@@ -1,3 +1,4 @@
+include EmbedlyData
 class BookmarksController < ApplicationController
 before_action :authenticate_user!
 
@@ -10,7 +11,14 @@ before_action :authenticate_user!
     #@bookmark = Bookmark.build(bookmark_params)
     @topic = Topic.find params[:topic_id]
     @bookmark = @topic.bookmarks.build(bookmark_params)
+    hash = EmbedlyData.get_embedly_hash(@bookmark.url)
+    @bookmark.embedly_url = hash[:embedly_url]
+    @bookmark.embedly_image_url = hash[:embedly_image_url]
+    @bookmark.embedly_descr = hash[:embedly_descr]
+    @bookmark.embedly_title = hash[:embedly_title]
+
     authorize(@bookmark)
+
     if @bookmark.save
       redirect_to topic_path(params[:topic_id]) , notice: "Bookmark was saved successfully."
     else
@@ -24,7 +32,15 @@ before_action :authenticate_user!
     @bookmark = Bookmark.find(params[:id])
     @bookmark.assign_attributes(bookmark_params)
     @bookmark.topic_id = params[:topic_id]
+
+    hash = EmbedlyData.get_embedly_hash(@bookmark.url)
+    @bookmark.embedly_url = hash[:embedly_url]
+    @bookmark.embedly_image_url = hash[:embedly_image_url]
+    @bookmark.embedly_descr = hash[:embedly_descr]
+    @bookmark.embedly_title = hash[:embedly_title]
+
     authorize(@bookmark)
+
     if @bookmark.save
       redirect_to topic_path(params[:topic_id]), notice: "Bookmark was saved successfully."
     else
@@ -71,9 +87,15 @@ before_action :authenticate_user!
         redirect_to :back #topic_path($topic.id)
       end
 
-
   end
 
+  def preview_bookmarks
+
+    user = User.find(current_user.id)
+    user.update_attribute(:preview_bookmark, !current_user.preview_bookmark)
+    redirect_to :back
+
+  end
 
   private
 

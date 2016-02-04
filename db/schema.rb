@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202120958) do
+ActiveRecord::Schema.define(version: 20160204021709) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.string   "url"
     t.integer  "topic_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "public",     default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "public",            default: false
+    t.string   "embedly_url"
+    t.string   "embedly_image_url"
+    t.string   "embedly_descr"
+    t.string   "embedly_title"
   end
 
   add_index "bookmarks", ["topic_id"], name: "index_bookmarks_on_topic_id"
@@ -46,14 +50,14 @@ ActiveRecord::Schema.define(version: 20160202120958) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.integer  "role"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -63,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160202120958) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "items_per_page",         default: 5
+    t.boolean  "preview_bookmark",       default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -2,25 +2,17 @@ class UsersController < ApplicationController
 before_action :authenticate_user!
 
   def show
-    redirect_to (welcome_index_path) if current_user.blank?
+    redirect_to(welcome_index_path) if current_user.blank?
     @user = current_user
     @no_topics = Topic.where(user_id: current_user.id).count
-    @no_bookmarks = Topic.joins("LEFT OUTER JOIN bookmarks ON bookmarks.topic_id = topics.id").count
+    @no_bookmarks = Topic.joins(:bookmarks).uniq.count 
 
-    @showing_public = true
     @filter = "~LIKED"
     @next_offset = nil
     @previous_offset = nil
-    #@topics = Topic.joins("LEFT OUTER JOIN bookmarks ON likes.user_id = topics.user_id")
     @topics = Topic.show_liked_to(current_user.id)
-
-    #:show_liked_to, -> (user) {
-
-    #index_topics
-    #authorize(@topics)
+    authorize(@user)
     @enablenav = false
-
-
 
   end
 

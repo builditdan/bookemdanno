@@ -1,6 +1,6 @@
 
 <div class="row pagination">
-  <div class="col-md-8">
+  <div class="col-md-10">
     <% topics.each do |the_topic| %>
       <% user = User.find(the_topic.user_id) %>
       <%= render partial: "topics/topics", locals: {topic: the_topic, user_name: user.name} %>
@@ -16,20 +16,16 @@
     <% end %>
 
   </div>
-  <div class="col-md-4">
+  <div class="col-md-2">
 
     <% if !@topics.blank? && @filter != "~LIKED" %>
        <%= form_tag(filter_topics_path, method: "get") do %>
             <%= label_tag(:filter, "Filter:") %>
             <%= text_field_tag(:filter) %>
             <%= hidden_field_tag(:showing_public, @showing_public) %>
-            <br>
-            <%= submit_tag("Filter", class: "btn btn-success btn-spacing",) %>
-            <% if @showing_public %>
-              <%= link_to "Reset", public_topics_path, class: 'btn btn-success btn-spacing'  %>
-            <% else %>
-              <%= link_to "Reset", topics_path, class: 'btn btn-success btn-spacing'  %>
-            <% end %>
+            <br><br>
+            <%= submit_tag("Filter", class: "btn btn-success ") %>
+            <%= link_to "Reset", (@showing_public ? public_topics_path : topics_path), class: 'btn btn-success'  %>
 
        <% end %>
     <% end %>
@@ -37,7 +33,11 @@
     <%# link_to "Filter", new_topic_path, class: 'btn btn-success btn-spacing' %>
     <br>
     <br>
+    <% (current_user.preview_bookmark ? preview_button = "Disable Bookmark Preview" : preview_button = "Enable Bookmark Preview") %>
+    <%= link_to preview_button, preview_bookmarks_path, method: :update, class: 'btn btn-success' %>
+    <br>
+    <br>
     <% if !@showing_public %>
-        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success btn-spacing' %>
+        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
     <% end %>
   </div>

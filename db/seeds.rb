@@ -1,13 +1,13 @@
-include RandomData
+include RandomData, EmbedlyData
 
-5.times do
-   user = User.create!(
-   name:     RandomData.random_name,
-   email:    RandomData.random_email,
-   password: RandomData.random_password,
-   confirmed_at: Time.now,
-   items_per_page: 5
-   )
+ 5.times do
+     user = User.create!(
+     name:     RandomData.random_name,
+     email:    RandomData.random_email,
+     password: RandomData.random_password,
+     confirmed_at: Time.now,
+     items_per_page: 5
+     )
  end
 
  users = User.all
@@ -53,10 +53,18 @@ standard = User.create!(
   )
   end
 
-  200.times do
+  300.times do
+    fake_url = RandomData.random_url
+    hash = EmbedlyData.get_embedly_hash(fake_url)
+
     bookmark = Bookmark.create!(
-    url: RandomData.random_url,
-    topic_id: RandomData.random_topic(1, Topic.count)
+    url: fake_url,
+    topic_id: RandomData.random_topic(1, Topic.count),
+    embedly_url: hash[:embedly_url],
+    embedly_image_url: hash[:embedly_image_url],
+    embedly_descr: hash[:embedly_descr],
+    embedly_title: hash[:embedly_title]
+
   )
   end
 

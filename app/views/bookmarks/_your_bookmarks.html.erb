@@ -1,4 +1,5 @@
- <span style = "text-decoration:underline">Public | Delete | Edit | Bookmark</span><br>
+<br>
+<span style = "text-decoration:underline">Public | Delete | Edit | Bookmark</span><br>
 <small>
   <%= "It's lonely with no bookmarks! :)" if topic.bookmarks.blank? %>
 
@@ -11,9 +12,17 @@
     <% end %>
     <%= link_to "", topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id) , method: :delete, class: 'glyphicon glyphicon-remove bookmark-list' %>
     <%= link_to "", edit_topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id), method: :get,  class: 'glyphicon glyphicon-edit bookmark-list' %>
-    <%= link_to image_tag("http://www.google.com/s2/favicons?domain=#{the_bookmark.url}"), "#{the_bookmark.url}" %>
+
+    <% if !preview_bookmark %>
+      <%= link_to image_tag("http://www.google.com/s2/favicons?domain=#{the_bookmark.url}"), "#{the_bookmark.url}" %>
+    <% end %>
     <%= link_to "#{the_bookmark.url}", "#{the_bookmark.url}", target: "_blank" %>
+
+    <%= (preview_bookmark ? from_db_custom_display_card(the_bookmark.id) : nil) =%>
+
     <br>
+    <%= (preview_bookmark ? "<hr>".html_safe : nil) %>
+
 
   <% end %>
 </small>
