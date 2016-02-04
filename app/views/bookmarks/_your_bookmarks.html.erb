@@ -1,17 +1,17 @@
 <br>
-<span style = "text-decoration:underline">Public | Delete | Edit | Bookmark</span><br>
+<!-- <span style = "text-decoration:underline">Public | Delete | Edit | Bookmark</span><br> -->
 <small>
   <%= "It's lonely with no bookmarks! :)" if topic.bookmarks.blank? %>
 
   <% topic.bookmarks.show_bookmarks_filter(filter).each do |the_bookmark| %>
 
     <% if the_bookmark.public %>
-      <%= link_to "", share_bookmark_path(id: the_bookmark.id) , method: :update, class: 'glyphicon glyphicon glyphicon-eye-open bookmark-list' %>
+      <%= link_to "", share_bookmark_path(id: the_bookmark.id) , title: "Share Bookmark", rel: "tooltip", method: :update, class: 'glyphicon glyphicon glyphicon-eye-open bookmark-list' %>
     <% else %>
-      <%= link_to "", share_bookmark_path(id: the_bookmark.id) , method: :update, class: 'glyphicon glyphicon glyphicon-eye-close bookmark-list' %>
+      <%= link_to "", share_bookmark_path(id: the_bookmark.id) , title: "Share Bookmark", rel: "tooltip", method: :update, class: 'glyphicon glyphicon glyphicon-eye-close bookmark-list' %>
     <% end %>
-    <%= link_to "", topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id) , method: :delete, class: 'glyphicon glyphicon-remove bookmark-list' %>
-    <%= link_to "", edit_topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id), method: :get,  class: 'glyphicon glyphicon-edit bookmark-list' %>
+    <%= link_to "", topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id) , title: "Delete Bookmark", rel: "tooltip", method: :delete, class: 'glyphicon glyphicon-remove bookmark-list' %>
+    <%= link_to "", edit_topic_bookmark_path(topic_id: the_bookmark.topic_id, id: the_bookmark.id), title: "Edit Bookmark", rel: "tooltip", method: :get,  class: 'glyphicon glyphicon-edit bookmark-list' %>
 
     <% if !preview_bookmark %>
       <%= link_to image_tag("http://www.google.com/s2/favicons?domain=#{the_bookmark.url}"), "#{the_bookmark.url}" %>

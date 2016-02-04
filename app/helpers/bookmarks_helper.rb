@@ -40,11 +40,11 @@ module BookmarksHelper
      bookmark = Bookmark.find(bookmark_id)
 
      if !bookmark.embedly_image_url.nil?
-       build_html = '<h3>' + bookmark.embedly_title + '</h3>'
+       build_html = '<h3>' + (!bookmark.embedly_title.blank? ? bookmark.embedly_title : "No Title") + '</h3>'
        build_html += '<blockquote>'
-       build_html += '<a href="' + bookmark.embedly_url + '"><img src="' + bookmark.embedly_image_url + '" width="125" height="100" style="float:left; padding-right:10px;"></a> <br>'
-       build_html += '<p>' + bookmark.embedly_descr + '</p>'
-       build_html += '<footer> Read this is on <a href="' + bookmark.embedly_url + '">' + bookmark.embedly_url + '</a></footer>'
+       build_html += '<a href="' + (!bookmark.embedly_url.blank? ? bookmark.embedly_url : bookmark.url) + '"><img src="' + (!bookmark.embedly_image_url.blank? ? bookmark.embedly_image_url : "missing.png") + '" width="125" height="100" style="float:left; padding-right:10px;"></a> <br>'
+       build_html += '<p>' + (!bookmark.embedly_descr.blank? ? bookmark.embedly_descr : "No description")  + '</p>'
+       build_html += '<footer> Read this is on <a href="' + (!bookmark.embedly_url.blank? ? bookmark.embedly_url : bookmark.url) + '">' + (!bookmark.embedly_url.blank? ? bookmark.embedly_url : bookmark.url) + '</a></footer>'
        build_html += '</blockquote>'
      else
        build_html = "<h3>Preview not available</h3>"

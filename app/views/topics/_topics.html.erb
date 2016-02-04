@@ -10,13 +10,15 @@
         </h2>
         <%= render partial: "bookmarks/public_bookmarks", locals: {topic: topic, filter: @filter, preview_bookmark: current_user.preview_bookmark} %>
       <% else %>
-        <h2 class="media-heading ">
+        <h2 class="media-heading" style ="background-color: #F6F6F6; padding:13px;">
+          <%= link_to "", new_topic_bookmark_path(topic), method: :get, class: "glyphicon glyphicon-bookmark", title: "New Bookmark", rel: "tooltip" %>
+          <%= link_to "", new_topic_path, class: "glyphicon glyphicon-plus", title: "New Topic", rel: "tooltip" %>
           <%= link_to "#{topic.title}", topic %>
         </h2>
          <%= render partial: "bookmarks/your_bookmarks", locals: {topic: topic, filter: @filter, preview_bookmark: current_user.preview_bookmark} %>
       <% end %>
       <br>
-  
+
     <%# end%>
 
   </div>

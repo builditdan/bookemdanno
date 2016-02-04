@@ -4,18 +4,20 @@ before_action :authenticate_user!
 
   def new
     @bookmark = Bookmark.new
+    @topic = Topic.find params[:topic_id]
     authorize(@bookmark)
   end
 
   def create
-    #@bookmark = Bookmark.build(bookmark_params)
     @topic = Topic.find params[:topic_id]
     @bookmark = @topic.bookmarks.build(bookmark_params)
-    hash = EmbedlyData.get_embedly_hash(@bookmark.url)
-    @bookmark.embedly_url = hash[:embedly_url]
-    @bookmark.embedly_image_url = hash[:embedly_image_url]
-    @bookmark.embedly_descr = hash[:embedly_descr]
-    @bookmark.embedly_title = hash[:embedly_title]
+    if @bookmark.url.length >= 5
+      hash = EmbedlyData.get_embedly_hash(@bookmark.url)
+      @bookmark.embedly_url = hash[:embedly_url]
+      @bookmark.embedly_image_url = hash[:embedly_image_url]
+      @bookmark.embedly_descr = hash[:embedly_descr]
+      @bookmark.embedly_title = hash[:embedly_title]
+    end
 
     authorize(@bookmark)
 
@@ -52,6 +54,7 @@ before_action :authenticate_user!
 
   def edit
     @bookmark = Bookmark.find(params[:id])
+    @topic = Topic.find params[:topic_id]
     authorize(@bookmark)
   end
 
