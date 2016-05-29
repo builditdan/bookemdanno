@@ -1,3 +1,8 @@
+---
+layout: page
+title: BookemDanno
+hide: true
+---
 
 ### URL
 [https://bookemdanno.herokuapp.com/](https://bookemdanno.herokuapp.com/)
@@ -30,4 +35,4 @@ I need to update the logic so that when links are emailed the preview image is u
 I need to limit the number of bookmarks that can be viewed on one page, i.e. need to paginate. I am only doing that by topic at the moment. I should allow the user to set the number of topics/bookmarks that appear per page (currently at 5 for all users).
 
 ### Disclaimer
-I provide this Web site as an example of my work. It is **not a production site** and subject to **removal** along with any content that you may have created. If you are interested in using this site or the code - feel free to contact me with your questions.
+I provide this Web site as an example of my work. It is **not a production site** and subject to **removal** along with any content that you may have created. If you are interested in using this site or the code - feel free to download or contact me with your questions.
